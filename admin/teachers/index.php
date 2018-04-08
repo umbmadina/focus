@@ -107,10 +107,10 @@
                             <!-- Sidebar Navigation -->
                             <ul class="sidebar-nav">
                               <li>
-                                  <a href="clients.html"><i class="gi gi-parents fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Clients</span></a>
+                                  <a href="clients"><i class="gi gi-parents fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Clients</span></a>
                               </li>
                               <li>
-                                  <a href="teachers.html" ><i class="gi gi-woman fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Teachers</span></a>
+                                  <a href="teachers" ><i class="gi gi-woman fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Teachers</span></a>
                               </li>
 
                               </li>
@@ -119,11 +119,11 @@
                               </li>
 
                               <li>
-                                <a href="classes.html" ><i class="gi gi-heart fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Classes</span></a>
+                                <a href="classes" ><i class="gi gi-heart fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Classes</span></a>
 
                               </li>
                               <li>
-                                <a href="packages.html" ><i class="gi gi-inbox  fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Packages</span></a>
+                                <a href="packages" ><i class="gi gi-inbox  fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Packages</span></a>
                               </li>
                             </ul>
                             <!-- END Sidebar Navigation -->

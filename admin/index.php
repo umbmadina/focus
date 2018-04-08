@@ -5,14 +5,14 @@
         <title>Login - Dance Studio Focus Admin Panel</title>
 
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/plugins.css">
-        <link rel="stylesheet" href="css/main.css">
-        <script src="js/vendor/modernizr-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="admin/css/bootstrap.min.css">
+        <link rel="stylesheet" href="admin/css/plugins.css">
+        <link rel="stylesheet" href="admin/css/main.css">
+        <script src="admin/js/vendor/modernizr-3.3.1.min.js"></script>
     </head>
     <body>
         <div id="login-container">
-            <img src="img/logo.png" alt="logo">
+            <img src="admin/img/logo.png" alt="logo">
             <h1 class="h2 text-light text-center push-top-bottom animation-pullDown">
                  <strong>Dance Studio Focus</strong>
             </h1>
@@ -22,7 +22,7 @@
                     <h2>Please Login</h2>
                 </div>
 
-                <form id="form-login" action="clients.html" method="post" class="form-horizontal">
+                <form id="form-login" action="admin/clients" method="post" class="form-horizontal">
                     <div class="form-group">
                         <label for="login" class="col-xs-12">Login</label>
                         <div class="col-xs-12">
@@ -53,10 +53,10 @@
             </footer>
         </div>
 
-        <script src="js/vendor/jquery-2.2.4.min.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="js/app.js"></script>
+        <script src="admin/js/vendor/jquery-2.2.4.min.js"></script>
+        <script src="admin/js/vendor/bootstrap.min.js"></script>
+        <script src="admin/js/plugins.js"></script>
+        <script src="admin/js/app.js"></script>
         <script src="js/pages/readyLogin.js"></script>
         <script>$(function(){ ReadyLogin.init(); });</script>
     </body>

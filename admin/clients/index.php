@@ -3,8 +3,20 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Classes - Dance Studio Focus Admin Panel</title>
+        <title>Clients - Dance Studio Focus Admin Panel</title>
 
+        <!-- Icons -->
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <link rel="shortcut icon" href="img/favicon.png">
+        <link rel="apple-touch-icon" href="img/icon57.png" sizes="57x57">
+        <link rel="apple-touch-icon" href="img/icon72.png" sizes="72x72">
+        <link rel="apple-touch-icon" href="img/icon76.png" sizes="76x76">
+        <link rel="apple-touch-icon" href="img/icon114.png" sizes="114x114">
+        <link rel="apple-touch-icon" href="img/icon120.png" sizes="120x120">
+        <link rel="apple-touch-icon" href="img/icon144.png" sizes="144x144">
+        <link rel="apple-touch-icon" href="img/icon152.png" sizes="152x152">
+        <link rel="apple-touch-icon" href="img/icon180.png" sizes="180x180">
+        <!-- END Icons -->
 
         <!-- Stylesheets -->
         <!-- Bootstrap is included in its original form, unaltered -->
@@ -106,25 +118,36 @@
                         <div class="sidebar-content">
                             <!-- Sidebar Navigation -->
                             <ul class="sidebar-nav">
-                              <li>
-                                  <a href="clients.html"><i class="gi gi-parents fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Clients</span></a>
-                              </li>
-                              <li>
-                                  <a href="teachers.html" ><i class="gi gi-woman fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Teachers</span></a>
-                              </li>
+                                <li>
+                                    <a href="#" class="sidebar-nav-menu"><i class="gi gi-parents fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Clients</span></a>
+                                </li>
+                                <li>
+                                    <a href="teachers" ><i class="gi gi-woman fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Teachers</span></a>
+                                </li>
 
-                              </li>
-                              <li class="sidebar-separator">
-                                  <i class="fa fa-ellipsis-h"></i>
-                              </li>
+                                </li>
+                                <li class="sidebar-separator">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </li>
 
-                              <li>
-                                <a href="#" ><i class="gi gi-heart fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Classes</span></a>
+                                <li>
+                                  <a href="classes" ><i class="gi gi-heart fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Classes</span></a>
 
-                              </li>
-                              <li>
-                                <a href="packages.html" ><i class="gi gi-inbox  fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Packages</span></a>
-                              </li>
+                                </li>
+                                <li>
+                                  <a href="packages" ><i class="gi gi-inbox fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Packages</span></a>
+                                </li>
+                                <!-- <li>
+                                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-cog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dropdown</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:void(0)">Link #1</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">Link #2</a>
+                                        </li>
+                                    </ul>
+                                </li> -->
                             </ul>
                             <!-- END Sidebar Navigation -->
                         </div>
@@ -236,7 +259,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="header-section">
-                                        <h1>Classes</h1>
+                                        <h1>Clients</h1>
                                     </div>
                                 </div>
 
@@ -251,63 +274,53 @@
                                 <table id="datatable" class="table table-striped table-bordered table-vcenter">
                                     <thead>
                                         <tr>
-                                            <th onclick="sortTable(0)" class="text-center" style="width: 50px;">ID</th>
+                                            <th class="text-center" style="width: 50px;" onclick="sortTable(0)">ID</th>
                                             <th onclick="sortTable(1)">Name</th>
-                                            <th onclick="sortTable(2)">Day</th>
-                                            <th onclick="sortTable(3)">Time</th>
+                                            <th onclick="sortTable(2)" >Email</th>
+                                            <th onclick="sortTable(3)" style="width: 120px;">Package</th>
                                             <th class="text-center" style="width: 75px;"><i class="fa fa-flash"></i></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="text-center">1</td>
-                                            <td><strong>ClassName1</strong></td>
-                                            <td><span>Monday</span></td>
-                                            <td>15:30</td>
-
+                                            <td><strong class="uname">AppUser1</strong></td>
+                                            <td>app.user1@example.com</td>
+                                            <td><span class="label label-info">Silver</span></td>
                                             <td class="text-center">
-                                                <a href="#modal-compose2" data-toggle="modal" class="btn btn-effect-ripple btn-xs btn-success"
-                                                data-name = "ClassName1" data-day = "Monday"  data-time = "15:30" onclick="move(this);">
+                                                <a href="#modal-compose" data-toggle="modal" title="Edit User" class="btn btn-effect-ripple btn-xs btn-success"
+                                                data-name = "AppUser1" data-email = "app.user1@example.com" data-package = "Silver" onclick="move(this);">
                                                 <i class="fa fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Class" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete User" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="text-center">2</td>
-                                            <td><strong>ClassName2</strong></td>
-                                            <td><span>Wednesday</span></td>
-                                            <td>15:30</td>
-
+                                            <td><strong class="uname">AppUser2</strong></td>
+                                            <td>app.user2@example.com</td>
+                                            <td><span class="label label-success">Gold</span></td>
                                             <td class="text-center">
-                                                <a href="#modal-compose2" data-toggle="modal" class="btn btn-effect-ripple btn-xs btn-success"
-                                                data-name = "ClassName2" data-day = "Wednesday"  data-time = "15:30" onclick="move(this);">
-                                                <i class="fa fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Class" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                                                <a href="#modal-compose" data-toggle="modal" title="Edit User" class="btn btn-effect-ripple btn-xs btn-success"
+                                                data-name = "AppUser2" data-email = "app.user2@example.com" data-package = "Gold" onclick="move(this);">
+                                                  <i class="fa fa-pencil"></i></a>
+                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete User" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="text-center">3</td>
-                                            <td><strong>ClassName3</strong></td>
-                                            <td><span>Friday</span></td>
-                                            <td>15:30</td>
-
+                                            <td><strong>AppUser3</strong></td>
+                                            <td>app.user3@example.com</td>
+                                            <td><span class="label label-danger">Platinum</span></td>
                                             <td class="text-center">
-                                                <a href="#modal-compose2" data-toggle="modal"  class="btn btn-effect-ripple btn-xs btn-success"
-                                                data-name = "ClassName3" data-day = "Friday"  data-time = "15:30" onclick="move(this);">
+                                                <a href="#modal-compose" data-toggle="modal" title="Edit User" class="btn btn-effect-ripple btn-xs btn-success"
+                                                data-name = "AppUser3" data-email = "app.user3@example.com" data-package = "Platinum" onclick="move(this);">
                                                 <i class="fa fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Class" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete User" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
                                             </td>
                                         </tr>
-
-
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- Compose Message (Modal markup is at the bottom of this page before including JS scripts) -->
-                            <div class="block-section">
-                                <a href="#modal-compose" class="btn btn-effect-ripple btn-block btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Add Class</a>
-                            </div>
-                            <!-- END Compose Message -->
                         </div>
                         <!-- END Datatables Block -->
 
@@ -320,13 +333,14 @@
             <!-- END Page Container -->
         </div>
         <!-- END Page Wrapper -->
+
         <!-- Compose Modal -->
         <div id="modal-compose" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title"><strong>Add Class</strong></h3>
+                        <h3 class="modal-title"><strong>Edit User</strong></h3>
                     </div>
                     <div class="modal-body">
                         <form action="" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
@@ -335,84 +349,29 @@
                                   <div class="form-group">
                                       <label class="col-md-4 control-label" for="name">Name</label>
                                       <div class="col-md-6">
-                                          <input type="text" id="name" name="name" class="form-control" placeholder="Class name..">
+                                          <input type="text" id="name" name="name" class="form-control" value="Name">
                                       </div>
                                   </div>
 
                                   <div class="form-group">
-                                      <label class="col-md-4 control-label">Day</label>
+                                      <label class="col-md-4 control-label">E-mail</label>
                                       <div class="col-md-6">
-                                        <select class="form-control" name="day">
-                                          <option>Monday</option>
-                                          <option>Tuesday</option>
-                                          <option>Wednesday</option>
-                                          <option>Thursday</option>
-                                          <option>Friday</option>
-                                          <option>Saturday</option>
-                                          <option>Sunday</option>
+                                          <input type="email" name="email" class="form-control" id="email">
+                                      </div>
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label class="col-md-4 control-label">Package</label>
+                                      <div class="col-md-6">
+                                        <select class="form-control" name="package" id="package">
+                                          <option>Silver</option>
+                                          <option>Gold</option>
+                                          <option>Platinum</option>
+
                                         </select>
                                       </div>
                                   </div>
-                                  <div class="form-group">
-                                      <label class="col-md-4 control-label">Time</label>
-                                      <div class="col-md-6">
-                                          <input type="time" name="time" class="form-control">
-                                      </div>
-                                  </div>
 
-                                </div>
-                            </div>
-
-                            <div class="form-group form-actions">
-                                <div class="col-xs-12 text-right">
-                                    <button type="submit" class="btn btn-effect-ripple btn-primary">Add</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END Compose Modal -->
-        <!-- Compose Modal -->
-        <div id="modal-compose2" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title"><strong>Edit Class</strong></h3>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
-                            <div class="form-group">
-                                <div class="col-xs-12">
-                                  <div class="form-group">
-                                      <label class="col-md-4 control-label" for="name">Name</label>
-                                      <div class="col-md-6">
-                                          <input type="text" id="cname" name="name" class="form-control" placeholder="Class name..">
-                                      </div>
-                                  </div>
-
-                                  <div class="form-group">
-                                      <label class="col-md-4 control-label">Day</label>
-                                      <div class="col-md-6">
-                                        <select class="form-control" name="day" id="cday">
-                                          <option>Monday</option>
-                                          <option>Tuesday</option>
-                                          <option>Wednesday</option>
-                                          <option>Thursday</option>
-                                          <option>Friday</option>
-                                          <option>Saturday</option>
-                                          <option>Sunday</option>
-                                        </select>
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="col-md-4 control-label">Time</label>
-                                      <div class="col-md-6">
-                                          <input type="time" name="time" class="form-control" id="ctime">
-                                      </div>
-                                  </div>
 
                                 </div>
                             </div>
@@ -437,11 +396,12 @@
 
         <script src="js/pages/uiTables.js"></script>
         <script>$(function(){ UiTables.init(); });</script>
+
         <script>
           function move(e) {
-          document.getElementById("cname").value = e.dataset.name;
-          document.getElementById("cday").value = e.dataset.day;
-          document.getElementById("ctime").value = e.dataset.time;
+          document.getElementById("name").value = e.dataset.name;
+          document.getElementById("email").value = e.dataset.email;
+          document.getElementById("package").value = e.dataset.package;
           }
 
         </script>
