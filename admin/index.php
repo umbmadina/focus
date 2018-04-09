@@ -22,17 +22,17 @@
                     <h2>Please Login</h2>
                 </div>
 
-                <form id="form-login" action="admin/clients" method="post" class="form-horizontal">
+                <div class="form-horizontal">
                     <div class="form-group">
                         <label for="login" class="col-xs-12">Login</label>
                         <div class="col-xs-12">
-                            <input type="text" id="login" name="login" class="form-control" placeholder="Your login..">
+                            <input type="text" id="login" name="login" class="form-control" placeholder="Your login.." autofocus required autocomplete="false">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="login-password" class="col-xs-12">Password</label>
                         <div class="col-xs-12">
-                            <input type="password" id="login-password" name="login-password" class="form-control" placeholder="Your password..">
+                            <input type="password" id="login-password" name="login-password" class="form-control" placeholder="Your password.." required>
                         </div>
                     </div>
                     <div class="form-group form-actions">
@@ -42,10 +42,10 @@
                             </label>
                         </div>
                         <div class="col-xs-4 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-sm btn-success">Log In</button>
+                            <button type="submit" class="btn btn-effect-ripple btn-sm btn-success login-submit">Log In</button>
                         </div>
                     </div>
-                </form>
+                </div>
 
             </div>
             <footer class="text-muted text-center animation-pullUp">
@@ -57,7 +57,8 @@
         <script src="admin/js/vendor/bootstrap.min.js"></script>
         <script src="admin/js/plugins.js"></script>
         <script src="admin/js/app.js"></script>
-        <script src="js/pages/readyLogin.js"></script>
+        <script src="admin/js/pages/readyLogin.js"></script>
+        <script src="admin/js/requestHandler.js"></script>
         <script>$(function(){ ReadyLogin.init(); });</script>
     </body>
 </html>

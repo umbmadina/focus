@@ -21,10 +21,6 @@ class myDB
     var $data;
     var $fetch;
 
-    function myDB(){
-       $this->connect();
-    }
-
     function connect() {
         $this->link = pg_connect("host=localhost port=5432 dbname=lab3web user=postgres password=лщзьфшт01");
     }
@@ -140,7 +136,8 @@ class myDB
     }
 
     function getAllClients(){
-        $result = pg_query("SELECT * from clients where active = true");
+        $result = pg_query("SELECT c.id, c.name, c.email, p.name as package_name, p.id as package_id, c.active FROM clients c 
+                                      LEFT JOIN packages p on c.package_id = p.id WHERE c.active = true;");
         return pg_fetch_all($result);
     }
 
@@ -182,6 +179,23 @@ class myDB
     function getAllClasses(){
         $result = pg_query("SELECT * from classes where active = true");
         return pg_fetch_all($result);
+    }
+
+    function isAdminExists($login, $password){
+        $query = "SELECT * from admins where admins.login = $1 AND admins.password = $2";
+        $values = array($login, $password);
+        $result = pg_query_params($this->link, $query, $values);
+        $admin = pg_fetch_all($result);
+
+        if($admin[0]['login'] == $login && $admin[0]['password'] == $password){
+            session_start();
+            $_SESSION['admin_login'] = $login;
+            $_SESSION['admin_name'] = $admin[0]['name'];
+            echo true;
+        } else {
+            echo false;
+        }
+
     }
 
 

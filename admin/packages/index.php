@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -211,13 +212,13 @@
                 </li>
                 <li>
                   <a href="javascript:void(0)">
-                                          <strong>Maǵrıpa</strong>
+                                          <strong><?php echo $_SESSION['admin_login']?></strong>
                                       </a>
 
                 </li>
                 <li>
                   <a href="javascript:void(0)">
-                                          <strong>Hrıpýllaevna</strong>
+                                          <strong><?php echo $_SESSION['admin_name']?></strong>
                                       </a>
 
                 </li>

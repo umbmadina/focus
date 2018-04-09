@@ -1,3 +1,11 @@
+<?php
+    require_once($_SERVER[DOCUMENT_ROOT]."/cfg/core.php");
+    session_start();
+    $db = new myDB();
+    $db->connect();
+    $packages = $db->getAllPackages();
+    $clients = $db->getAllClients();
+?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     <head>
@@ -220,13 +228,13 @@
                                     </li>
                                     <li>
                                       <a href="javascript:void(0)">
-                                          <strong>Maǵrıpa</strong>
+                                          <strong><?php echo $_SESSION['admin_login']?></strong>
                                       </a>
 
                                     </li>
                                     <li>
                                       <a href="javascript:void(0)">
-                                          <strong>Hrıpýllaevna</strong>
+                                          <strong><?php echo $_SESSION['admin_name']?></strong>
                                       </a>
 
                                     </li>
@@ -282,42 +290,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="text-center">1</td>
-                                            <td><strong class="uname">AppUser1</strong></td>
-                                            <td>app.user1@example.com</td>
-                                            <td><span class="label label-info">Silver</span></td>
-                                            <td class="text-center">
-                                                <a href="#modal-compose" data-toggle="modal" title="Edit User" class="btn btn-effect-ripple btn-xs btn-success"
-                                                data-name = "AppUser1" data-email = "app.user1@example.com" data-package = "Silver" onclick="move(this);">
-                                                <i class="fa fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete User" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">2</td>
-                                            <td><strong class="uname">AppUser2</strong></td>
-                                            <td>app.user2@example.com</td>
-                                            <td><span class="label label-success">Gold</span></td>
-                                            <td class="text-center">
-                                                <a href="#modal-compose" data-toggle="modal" title="Edit User" class="btn btn-effect-ripple btn-xs btn-success"
-                                                data-name = "AppUser2" data-email = "app.user2@example.com" data-package = "Gold" onclick="move(this);">
-                                                  <i class="fa fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete User" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">3</td>
-                                            <td><strong>AppUser3</strong></td>
-                                            <td>app.user3@example.com</td>
-                                            <td><span class="label label-danger">Platinum</span></td>
-                                            <td class="text-center">
-                                                <a href="#modal-compose" data-toggle="modal" title="Edit User" class="btn btn-effect-ripple btn-xs btn-success"
-                                                data-name = "AppUser3" data-email = "app.user3@example.com" data-package = "Platinum" onclick="move(this);">
-                                                <i class="fa fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete User" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                                            </td>
-                                        </tr>
+                                        <?php foreach ($clients as &$value){?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $value['id']?></td>
+                                                <td><strong class="uname"><?php echo $value['name']?></strong></td>
+                                                <td><?php echo $value['email']?></td>
+                                                <td><span class="label label-info"><?php echo $value['package_name']?></span></td>
+                                                <td class="text-center">
+                                                    <a href="#modal-compose" data-toggle="modal" title="Edit User" class="btn btn-effect-ripple btn-xs btn-success"
+                                                       data-id = "<?php echo $value['id']?>" data-name = "<?php echo $value['name']?>" data-email = "<?php echo $value['email']?>" data-package = "<?php echo $value['package_id']?>" onclick="move(this);">
+                                                        <i class="fa fa-pencil"></i></a>
+                                                    <a href="javascript:void(0)" data-id="<?php echo $value['id']?>" data-toggle="tooltip" title="Delete User" class="btn btn-effect-ripple btn-xs btn-danger delete-client"><i class="fa fa-times"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -343,9 +329,16 @@
                         <h3 class="modal-title"><strong>Edit User</strong></h3>
                     </div>
                     <div class="modal-body">
-                        <form action="" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
+                        <div class="form-horizontal form-bordered">
                             <div class="form-group">
                                 <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="id">ID</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="id" name="id" class="form-control" value="ID" readonly>
+                                        </div>
+                                    </div>
+
                                   <div class="form-group">
                                       <label class="col-md-4 control-label" for="name">Name</label>
                                       <div class="col-md-6">
@@ -364,24 +357,21 @@
                                       <label class="col-md-4 control-label">Package</label>
                                       <div class="col-md-6">
                                         <select class="form-control" name="package" id="package">
-                                          <option>Silver</option>
-                                          <option>Gold</option>
-                                          <option>Platinum</option>
-
+                                            <?php foreach ($packages as &$value){?>
+                                                <option value="<?php echo $value['id']?>"><?php echo $value['name']?></option>
+                                            <?php }?>
                                         </select>
                                       </div>
                                   </div>
-
-
                                 </div>
                             </div>
 
                             <div class="form-group form-actions">
                                 <div class="col-xs-12 text-right">
-                                    <button type="submit" class="btn btn-effect-ripple btn-primary">Edit</button>
+                                    <button type="submit" class="btn btn-effect-ripple btn-primary edit-client">Edit</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -393,15 +383,17 @@
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/app.js"></script>
+        <script src="js/requestHandler.js"></script>
 
         <script src="js/pages/uiTables.js"></script>
         <script>$(function(){ UiTables.init(); });</script>
 
         <script>
           function move(e) {
-          document.getElementById("name").value = e.dataset.name;
-          document.getElementById("email").value = e.dataset.email;
-          document.getElementById("package").value = e.dataset.package;
+              document.getElementById("id").value = e.dataset.id;
+              document.getElementById("name").value = e.dataset.name;
+              document.getElementById("email").value = e.dataset.email;
+              document.getElementById("package").value = e.dataset.package;
           }
 
         </script>
