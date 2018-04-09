@@ -20,8 +20,6 @@ $(function(){
 		    return;
         }
 
-		console.log("check: " + remember);
-
         sendRequest(
             "cfg/request.php",
             {
@@ -59,11 +57,11 @@ $(function(){
                 location.reload(true);
             }
         );
-    })
+    });
 
     $('.delete-client').click(function () {
         var id = $(this).attr('data-id');
-        console.log(id);
+
         sendRequest(
             "../cfg/request.php",
             {
@@ -74,5 +72,64 @@ $(function(){
                 location.reload(true);
             }
         );
-    })
+    });
+
+    $('.add-class').click(function(){
+        var name = $('#add-class-name').val();
+        var time = $('#add-class-time').val();
+        var day = $('#add-class-day').val();
+        var teacher_id = $('#add-class-teacher-id').val();
+
+        sendRequest(
+            "../cfg/request.php",
+            {
+                'add-class': true,
+                name: name,
+                time: time,
+                day: day,
+                teacher_id: teacher_id
+            },
+            function (data) {
+                location.reload(true);
+            }
+        );
+    });
+
+    $('.edit-class').click(function () {
+        var id = $('#cid').val();
+        var name = $('#cname').val();
+        var time = $('#ctime').val();
+        var day = $('#cday').val();
+        var teacher_id = $('#cteacher-id').val();
+
+        sendRequest(
+            "../cfg/request.php",
+            {
+                'update-class': true,
+                id: id,
+                name: name,
+                time: time,
+                day: day,
+                teacher_id: teacher_id
+            },
+            function (data) {
+                location.reload(true);
+            }
+        );
+    });
+
+    $('.delete-class').click(function(){
+        var id = $(this).attr('data-id');
+
+        sendRequest(
+            "../cfg/request.php",
+            {
+                'delete-class': true,
+                id: id
+            },
+            function (data) {
+                location.reload(true);
+            }
+        );
+    });
 });

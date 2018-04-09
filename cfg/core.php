@@ -177,9 +177,46 @@ class myDB
     }
 
     function getAllClasses(){
-        $result = pg_query("SELECT * from classes where active = true");
+        $result = pg_query("SELECT c.id, c.name, c.day, c.time, CONCAT(t.name, ' ', t.surname) as teacher_name, t.id as teacher_id, c.active FROM classes c 
+                                      LEFT JOIN teachers t on c.teacher_id = t.id WHERE c.active = true AND t.active = true;");
         return pg_fetch_all($result);
     }
+
+    function addClass($name, $day, $time, $teacherId){
+        $query = "INSERT INTO classes (id, name, day, time, teacher_id) VALUES (default , $1, $2, $3, $4)";
+        $values = array($name, $day, $time, $teacherId);
+        $result = pg_query_params($this->link, $query, $values);
+
+        if(!$result){
+            echo false;
+        } else {
+            echo true;
+        }
+    }
+
+    function deleteClass($id) {
+        $query = "UPDATE classes SET active = false WHERE id = $1";
+        $result = pg_query_params($this->link, $query, array($id));
+
+        if(!$result){
+            echo false;
+        } else {
+            echo true;
+        }
+    }
+
+    function updateClass($id, $name, $day, $time, $teacherId){
+        $query = "UPDATE classes SET name = $2, day = $3, time = $4, teacher_id = $5, active = true WHERE id = $1";
+        $values = array($id, $name, $day, $time, $teacherId);
+        $result = pg_query_params($this->link, $query, $values);
+
+        if(!$result){
+            echo false;
+        } else {
+            echo true;
+        }
+    }
+
 
     function isAdminExists($login, $password){
         $query = "SELECT * from admins where admins.login = $1 AND admins.password = $2";

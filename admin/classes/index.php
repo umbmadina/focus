@@ -1,3 +1,11 @@
+<?php
+    require_once($_SERVER[DOCUMENT_ROOT]."/cfg/core.php");
+    $db = new myDB();
+    $db->connect();
+    $classes = $db->getAllClasses();
+    $teachers = $db->getAllTeachers();
+    session_start();
+?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     <head>
@@ -197,13 +205,13 @@
                                     </li>
                                     <li>
                                       <a href="javascript:void(0)">
-                                          <strong>Maǵrıpa</strong>
+                                          <strong><?php echo $_SESSION['admin_login']?></strong>
                                       </a>
 
                                     </li>
                                     <li>
                                       <a href="javascript:void(0)">
-                                          <strong>Hrıpýllaevna</strong>
+                                          <strong><?php echo $_SESSION['admin_name']?></strong>
                                       </a>
 
                                     </li>
@@ -216,7 +224,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="login.html">
+                                        <a href="logout">
                                             <i class="gi gi-lock fa-fw pull-right"></i>
                                             Log out
                                         </a>
@@ -254,52 +262,28 @@
                                             <th onclick="sortTable(0)" class="text-center" style="width: 50px;">ID</th>
                                             <th onclick="sortTable(1)">Name</th>
                                             <th onclick="sortTable(2)">Day</th>
-                                            <th onclick="sortTable(3)">Time</th>
+                                            <th onclick="sortTable(3)">Teacher</th>
+                                            <th onclick="sortTable(4)">Time</th>
                                             <th class="text-center" style="width: 75px;"><i class="fa fa-flash"></i></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="text-center">1</td>
-                                            <td><strong>ClassName1</strong></td>
-                                            <td><span>Monday</span></td>
-                                            <td>15:30</td>
+                                        <?php foreach ($classes as &$value){?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $value['id']?></td>
+                                                <td><strong><?php echo $value['name']?></strong></td>
+                                                <td><span><?php echo $value['day']?></span></td>
+                                                <td><span><?php echo $value['teacher_name']?></span></td>
+                                                <td><?php echo date_format(date_create($value['time']), 'H:i');?></td>
 
-                                            <td class="text-center">
-                                                <a href="#modal-compose2" data-toggle="modal" class="btn btn-effect-ripple btn-xs btn-success"
-                                                data-name = "ClassName1" data-day = "Monday"  data-time = "15:30" onclick="move(this);">
-                                                <i class="fa fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Class" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">2</td>
-                                            <td><strong>ClassName2</strong></td>
-                                            <td><span>Wednesday</span></td>
-                                            <td>15:30</td>
-
-                                            <td class="text-center">
-                                                <a href="#modal-compose2" data-toggle="modal" class="btn btn-effect-ripple btn-xs btn-success"
-                                                data-name = "ClassName2" data-day = "Wednesday"  data-time = "15:30" onclick="move(this);">
-                                                <i class="fa fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Class" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">3</td>
-                                            <td><strong>ClassName3</strong></td>
-                                            <td><span>Friday</span></td>
-                                            <td>15:30</td>
-
-                                            <td class="text-center">
-                                                <a href="#modal-compose2" data-toggle="modal"  class="btn btn-effect-ripple btn-xs btn-success"
-                                                data-name = "ClassName3" data-day = "Friday"  data-time = "15:30" onclick="move(this);">
-                                                <i class="fa fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Class" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                                            </td>
-                                        </tr>
-
-
+                                                <td class="text-center">
+                                                    <a href="#modal-compose2" data-toggle="modal" class="btn btn-effect-ripple btn-xs btn-success"
+                                                       data-id = "<?php echo $value['id']?>" data-name = "<?php echo $value['name']?>" data-day = "<?php echo $value['day']?>"  data-time = "<?php echo date_format(date_create($value['time']), 'H:i');?>" data-teacher = "<?php echo $value['teacher_id']?>" onclick="move(this);">
+                                                        <i class="fa fa-pencil"></i></a>
+                                                    <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Class" class="btn btn-effect-ripple btn-xs btn-danger delete-class" data-id="<?php echo $value['id']?>"><i class="fa fa-times"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -329,20 +313,20 @@
                         <h3 class="modal-title"><strong>Add Class</strong></h3>
                     </div>
                     <div class="modal-body">
-                        <form action="" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
+                        <div class="form-horizontal form-bordered" onsubmit="return false;">
                             <div class="form-group">
                                 <div class="col-xs-12">
                                   <div class="form-group">
                                       <label class="col-md-4 control-label" for="name">Name</label>
                                       <div class="col-md-6">
-                                          <input type="text" id="name" name="name" class="form-control" placeholder="Class name..">
+                                          <input type="text" id="add-class-name" name="name" class="form-control" placeholder="Class name..">
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="col-md-4 control-label">Day</label>
                                       <div class="col-md-6">
-                                        <select class="form-control" name="day">
+                                        <select id="add-class-day" class="form-control" name="day">
                                           <option>Monday</option>
                                           <option>Tuesday</option>
                                           <option>Wednesday</option>
@@ -353,22 +337,34 @@
                                         </select>
                                       </div>
                                   </div>
+
                                   <div class="form-group">
                                       <label class="col-md-4 control-label">Time</label>
                                       <div class="col-md-6">
-                                          <input type="time" name="time" class="form-control">
+                                          <input id="add-class-time" type="time" name="time" class="form-control">
                                       </div>
                                   </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Teacher</label>
+                                        <div class="col-md-6">
+                                            <select id="add-class-teacher-id" class="form-control" name="teacher">
+                                                <?php foreach ($teachers as &$value){?>
+                                                    <option value="<?php echo $value['id']?>"><?php echo $value['name'] . " " . $value['surname']?></option>
+                                                <?php }?>
+                                            </select>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
 
                             <div class="form-group form-actions">
                                 <div class="col-xs-12 text-right">
-                                    <button type="submit" class="btn btn-effect-ripple btn-primary">Add</button>
+                                    <button type="submit" class="btn btn-effect-ripple btn-primary add-class">Add</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -386,6 +382,13 @@
                         <form action="" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
                             <div class="form-group">
                                 <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="cid">ID</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="cid" name="cid" class="form-control" value="ID" readonly>
+                                        </div>
+                                    </div>
+
                                   <div class="form-group">
                                       <label class="col-md-4 control-label" for="name">Name</label>
                                       <div class="col-md-6">
@@ -414,12 +417,23 @@
                                       </div>
                                   </div>
 
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Teacher</label>
+                                        <div class="col-md-6">
+                                            <select id="cteacher-id" class="form-control" name="teacher">
+                                                <?php foreach ($teachers as &$value){?>
+                                                    <option value="<?php echo $value['id']?>"><?php echo $value['name'] . " " . $value['surname']?></option>
+                                                <?php }?>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
                             <div class="form-group form-actions">
                                 <div class="col-xs-12 text-right">
-                                    <button type="submit" class="btn btn-effect-ripple btn-primary">Edit</button>
+                                    <button type="submit" class="btn btn-effect-ripple btn-primary edit-class">Edit</button>
                                 </div>
                             </div>
                         </form>
@@ -434,14 +448,17 @@
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/app.js"></script>
+        <script src="js/requestHandler.js"></script>
 
         <script src="js/pages/uiTables.js"></script>
         <script>$(function(){ UiTables.init(); });</script>
         <script>
           function move(e) {
-          document.getElementById("cname").value = e.dataset.name;
-          document.getElementById("cday").value = e.dataset.day;
-          document.getElementById("ctime").value = e.dataset.time;
+              document.getElementById("cid").value = e.dataset.id;
+              document.getElementById("cname").value = e.dataset.name;
+              document.getElementById("cday").value = e.dataset.day;
+              document.getElementById("ctime").value = e.dataset.time;
+              document.getElementById("cteacher-id").value = e.dataset.teacher;
           }
 
         </script>

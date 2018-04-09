@@ -40,5 +40,44 @@ if (isset($_REQUEST["delete-client"])) {
     return $res;
 }
 
+if (isset($_REQUEST["add-class"])) {
+    $db->connect();
+
+    $name = $_REQUEST["name"];
+    $day = $_REQUEST["day"];
+    $time = $_REQUEST["time"];
+    $teacher_id = $_REQUEST["teacher_id"];
+    $res = $db->addClass($name, $day, $time, $teacher_id);
+
+    $db->close();
+
+    return $res;
+}
+
+if (isset($_REQUEST["update-class"])) {
+    $db->connect();
+
+    $classId = $_REQUEST["id"];
+    $name = $_REQUEST["name"];
+    $day = $_REQUEST["day"];
+    $time = $_REQUEST["time"];
+    $teacher_id = $_REQUEST["teacher_id"];
+
+    $res = $db->updateClass($classId, $name, $day, $time, $teacher_id);
+
+    $db->close();
+    return $res;
+}
+
+if (isset($_REQUEST["delete-class"])) {
+    $db->connect();
+
+    $classId = $_REQUEST["id"];
+    $res = $db->deleteClass($classId);
+
+    $db->close();
+    return $res;
+}
+
 
 
