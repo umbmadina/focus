@@ -132,4 +132,66 @@ $(function(){
             }
         );
     });
+
+    $('.add-teacher').click(function(){
+        var name = $('#name').val();
+        var surname = $('#surname').val();
+        var email = $('#email').val();
+        var phone = $('#phone').val();
+
+        console.log(name + surname + email + phone)
+
+        sendRequest(
+            "../cfg/request.php",
+            {
+                'add-teacher': true,
+                name: name,
+                surname: surname,
+                email: email,
+                phone: phone
+            },
+            function (data) {
+                location.reload(true);
+            }
+        );
+    });
+
+
+    $('.edit-teacher').click(function () {
+        var id = $('#tid').val();
+        var name = $('#tname').val();
+        var surname = $('#tsurname').val();
+        var email = $('#temail').val();
+        var phone = $('#tphone').val();
+
+        sendRequest(
+            "../cfg/request.php",
+            {
+                'update-teacher': true,
+                id: id,
+                name: name,
+                surname: surname,
+                email: email,
+                phone: phone
+            },
+            function (data) {
+                location.reload(true);
+            }
+        );
+    });
+
+    $('.delete-teacher').click(function(){
+        var id = $(this).attr('data-id');
+
+        sendRequest(
+            "../cfg/request.php",
+            {
+                'delete-teacher': true,
+                id: id
+            },
+            function (data) {
+                location.reload(true);
+            }
+        );
+    });
 });

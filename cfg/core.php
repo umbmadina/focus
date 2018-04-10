@@ -84,7 +84,8 @@ class myDB
     }
 
     function updateTeacher($id, $name, $surname, $email, $phone){
-        $query = "UPDATE Teachers SET name = $2, surname = $3, email = $4, phone = $5, active = true WHERE id = $1";
+        $query = "UPDATE teachers SET name = $2, surname = $3, email = $4, phone = $5, active = true WHERE id = $1";
+
         $values = array($id, $name, $surname, $email, $phone);
         $result = pg_query_params($this->link, $query, $values);
 

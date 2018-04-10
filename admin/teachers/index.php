@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php
+    require_once($_SERVER[DOCUMENT_ROOT]."/cfg/core.php");
+    $db = new myDB();
+    $db->connect();
+    $teachers = $db->getAllTeachers();
+    session_start();
+?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     <head>
@@ -256,51 +262,27 @@
                                             <th onclick="sortTable(1)">Name</th>
                                             <th onclick="sortTable(2)">Surname</th>
                                             <th onclick="sortTable(3)">Email</th>
-                                            <th onclick="sortTable(4)"style="width: 120px;">Phone</th>
+                                            <th onclick="sortTable(4)"style="width: 150px;">Phone</th>
                                             <th class="text-center" style="width: 75px;"><i class="fa fa-flash"></i></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="text-center">1</td>
-                                            <td><strong>UserName1</strong></td>
-                                            <td><span>UserSurname1</span></td>
-                                            <td>app.user1@example.com</td>
-                                            <td>+1234567890</td>
-                                            <td class="text-center">
-                                                <a href="#modal-compose2" data-toggle="modal" class="btn btn-effect-ripple btn-xs btn-success"
-                                                data-name = "UserName1" data-surname = "UserSurname1"  data-email = "app.user1@example.com" data-phone = "+1234567890" onclick="move(this);"
-                                                ><i class="fa fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete User" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">2</td>
-                                            <td><strong>UserName2</strong></td>
-                                            <td><span>UserSurname2</span></td>
-                                            <td>app.user2@example.com</td>
-                                            <td>+1234567890</td>
-                                            <td class="text-center">
-                                                <a href="#modal-compose2" data-toggle="modal" title="Edit User" class="btn btn-effect-ripple btn-xs btn-success"
-                                                data-name = "UserName2" data-surname = "UserSurname2"  data-email = "app.user2@example.com" data-phone = "+1234567890" onclick="move(this);">
-                                                <i class="fa fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete User" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">3</td>
-                                            <td><strong>UserName3</strong></td>
-                                            <td><span>UserSurname3</span></td>
-                                            <td>app.user3@example.com</td>
-                                            <td>+1234567890</td>
-                                            <td class="text-center">
-                                                <a href="#modal-compose2" data-toggle="modal" title="Edit User" class="btn btn-effect-ripple btn-xs btn-success"
-                                                data-name = "UserName3" data-surname = "UserSurname3"  data-email = "app.user3@example.com" data-phone = "+1234567890" onclick="move(this);">
-                                                <i class="fa fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete User" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                                            </td>
-                                        </tr>
+                                        <?php foreach ($teachers as &$value){?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $value['id']?></td>
+                                                <td><strong><?php echo $value['name']?></strong></td>
+                                                <td><span><?php echo $value['surname']?></span></td>
+                                                <td><span><?php echo $value['email']?></span></td>
+                                                <td><?php echo $value['phone']?></td>
 
+                                                <td class="text-center">
+                                                    <a href="#modal-compose2" data-toggle="modal" class="btn btn-effect-ripple btn-xs btn-success"
+                                                       data-id = "<?php echo $value['id']?>" data-name = "<?php echo $value['name']?>" data-surname = "<?php echo $value['surname']?>"  data-email = "<?php echo $value['email']?>" data-phone = "<?php echo $value['phone']?>" onclick="move(this);">
+                                                        <i class="fa fa-pencil"></i></a>
+                                                    <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Class" class="btn btn-effect-ripple btn-xs btn-danger delete-teacher" data-id="<?php echo $value['id']?>"><i class="fa fa-times"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -329,7 +311,14 @@
                         <form action="" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
                             <div class="form-group">
                                 <div class="col-xs-12">
-                                  <div class="form-group">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="cid">ID</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="tid" name="tid" class="form-control" value="ID" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                       <label class="col-md-4 control-label" for="name">Name</label>
                                       <div class="col-md-6">
                                           <input type="text" id="tname" name="name" class="form-control" placeholder="Teacher name..">
@@ -368,7 +357,7 @@
 
                             <div class="form-group form-actions">
                                 <div class="col-xs-12 text-right">
-                                    <button type="submit" class="btn btn-effect-ripple btn-primary">Edit</button>
+                                    <button type="submit" class="btn btn-effect-ripple btn-primary edit-teacher">Edit</button>
                                 </div>
                             </div>
                         </form>
@@ -387,7 +376,7 @@
                         <h3 class="modal-title"><strong>Add Teacher</strong></h3>
                     </div>
                     <div class="modal-body">
-                        <form action="" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
+                        <div class="form-horizontal form-bordered" onsubmit="return false;">
                             <div class="form-group">
                                 <div class="col-xs-12">
                                   <div class="form-group">
@@ -399,14 +388,14 @@
                                   <div class="form-group">
                                       <label class="col-md-4 control-label">Surame</label>
                                       <div class="col-md-6">
-                                          <input type="text" name="surname" class="form-control" placeholder="Teacher surname..">
+                                          <input type="text" id="surname" name="surname" class="form-control" placeholder="Teacher surname..">
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="col-md-4 control-label">E-mail</label>
                                       <div class="col-md-6">
-                                          <input type="email" name="email" class="form-control" placeholder="teacher@email.com">
+                                          <input type="email" id="email" name="email" class="form-control" placeholder="teacher@email.com">
                                       </div>
                                   </div>
 
@@ -429,10 +418,10 @@
 
                             <div class="form-group form-actions">
                                 <div class="col-xs-12 text-right">
-                                    <button type="submit" class="btn btn-effect-ripple btn-primary">Add</button>
+                                    <button type="submit" class="btn btn-effect-ripple btn-primary add-teacher">Add</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -445,15 +434,17 @@
         <script src="js/plugins.js"></script>
         <script src="js/app.js"></script>
         <script src="js/phonevalidation.js"></script>
+        <script src="js/requestHandler.js"></script>
 
         <script src="js/pages/uiTables.js"></script>
         <script>$(function(){ UiTables.init(); });</script>
         <script>
           function move(e) {
-          document.getElementById("tname").value = e.dataset.name;
-          document.getElementById("tsurname").value = e.dataset.surname;
-          document.getElementById("temail").value = e.dataset.email;
-          document.getElementById("tphone").value = e.dataset.phone;
+              document.getElementById("tid").value = e.dataset.id;
+              document.getElementById("tname").value = e.dataset.name;
+              document.getElementById("tsurname").value = e.dataset.surname;
+              document.getElementById("temail").value = e.dataset.email;
+              document.getElementById("tphone").value = e.dataset.phone;
           }
 
         </script>

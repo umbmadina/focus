@@ -79,5 +79,43 @@ if (isset($_REQUEST["delete-class"])) {
     return $res;
 }
 
+if (isset($_REQUEST["add-teacher"])) {
+    $db->connect();
+
+    $name = $_REQUEST["name"];
+    $surname = $_REQUEST["surname"];
+    $email = $_REQUEST["email"];
+    $phone = $_REQUEST["phone"];
+    $res = $db->addTeacher($name, $surname, $email, $phone);
+
+    $db->close();
+
+    return $res;
+}
+
+if (isset($_REQUEST["update-teacher"])) {
+    $db->connect();
+
+    $teacherId = $_REQUEST["id"];
+    $name = $_REQUEST["name"];
+    $surname = $_REQUEST["surname"];
+    $email = $_REQUEST["email"];
+    $phone = $_REQUEST["phone"];
+
+    $res = $db->updateTeacher($teacherId, $name, $surname, $email, $phone);
+
+    $db->close();
+    return $res;
+}
+
+if (isset($_REQUEST["delete-teacher"])) {
+    $db->connect();
+
+    $teacherId = $_REQUEST["id"];
+    $res = $db->deleteTeacher($teacherId);
+
+    $db->close();
+    return $res;
+}
 
 
