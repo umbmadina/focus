@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php
+    require_once($_SERVER[DOCUMENT_ROOT]."/cfg/core.php");
+    $db = new myDB();
+    $db->connect();
+    $packages = $db->getAllPackages();
+    session_start();
+?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -275,39 +281,20 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="text-center">1</td>
-                    <td><strong>Silver</strong></td>
-                    <td><span>100$</span></td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">
-                      <a href="#modal-compose2" data-toggle="modal" class="btn btn-effect-ripple btn-xs btn-success" data-name="Silver" data-price="100$" data-number="1" onclick="move(this);">
-                                                <i class="fa fa-pencil"></i></a>
-                      <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Package" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-center">2</td>
-                    <td><strong>Gold</strong></td>
-                    <td><span>150$</span></td>
-                    <td class="text-center">3</td>
-                    <td class="text-center">
-                      <a href="#modal-compose2" data-toggle="modal" class="btn btn-effect-ripple btn-xs btn-success" data-name="Gold" data-price="150$" data-number="3" onclick="move(this);">
-                                                <i class="fa fa-pencil"></i></a>
-                      <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Package" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-center">3</td>
-                    <td><strong>Platinum</strong></td>
-                    <td><span>200$</span></td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">
-                      <a href="#modal-compose2" data-toggle="modal" class="btn btn-effect-ripple btn-xs btn-success" data-name="Platinum" data-price="200$" data-number="5" onclick="move(this);">
-                                                  <i class="fa fa-pencil"></i></a>
-                      <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Package" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
+                <?php foreach ($packages as &$value){?>
+                    <tr>
+                        <td class="text-center"><?php echo $value['id']?></td>
+                        <td><strong><?php echo $value['name']?></strong></td>
+                        <td><span><?php echo $value['price']?></span></td>
+                        <td class="text-center"><?php echo $value['number']?></td>
+                        <td class="text-center">
+                            <a href="#modal-compose2" data-toggle="modal" class="btn btn-effect-ripple btn-xs btn-success"
+                               data-id = "<?php echo $value['id']?>" data-name = "<?php echo $value['name']?>" data-price = "<?php echo $value['price']?>"  data-number = "<?php echo $value['number']?>" onclick="move(this);">
+                                <i class="fa fa-pencil"></i></a>
+                            <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Class" class="btn btn-effect-ripple btn-xs btn-danger delete-teacher" data-id="<?php echo $value['id']?>"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                <?php } ?>
                 </tbody>
               </table>
             </div>
@@ -426,6 +413,7 @@
   <script src="js/vendor/bootstrap.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/requestHandler.js"></script>
 
   <script src="js/pages/uiTables.js"></script>
   <script>
