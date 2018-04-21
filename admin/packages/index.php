@@ -238,7 +238,7 @@
                                         </a>
                     </li>
                     <li>
-                      <a href="login.html">
+                      <a href="#" class="logout">
                                             <i class="gi gi-lock fa-fw pull-right"></i>
                                             Log out
                                         </a>

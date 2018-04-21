@@ -11,22 +11,22 @@ function sendRequest(url, data, callback) {
 $(function(){
 
     $('.login-submit').click(function(){
-    	var login = $("#login").val();
-		var password = $("#login-password").val();
-		var remember = $("#login-remember-me").val();
+        var login = $("#login").val();
+        var password = $("#login-password").val();
+        var remember = $("#login-remember-me").val();
 
-		if(login.length == 0 || password.length == 0){
-		    alert("Enter something");
-		    return;
+        if(login.length == 0 || password.length == 0){
+            alert("Enter something");
+            return;
         }
 
         sendRequest(
             "cfg/request.php",
             {
-				login: true,
-				name: login,
-				pass: password
-			},
+                login: true,
+                name: login,
+                pass: password
+            },
             function (data) {
                 console.log(data);
                 if(data == true){
@@ -194,4 +194,14 @@ $(function(){
             }
         );
     });
+
+    $('.logout').click(function () {
+        sendRequest(
+            "../cfg/request.php",
+            { logout: true },
+            function () {
+                location.replace('/admin');
+            }
+        );
+    })
 });
