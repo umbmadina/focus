@@ -11,24 +11,23 @@ function sendRequest(url, data, callback) {
 $(function(){
 
     $('.login-submit').click(function(){
-    	var login = $("#login").val();
-		var password = $("#login-password").val();
-		var remember = $("#login-remember-me").val();
+        var login = $("#login").val();
+        var password = $("#login-password").val();
+        var remember = $("#login-remember-me").val();
 
-		if(login.length == 0 || password.length == 0){
-		    alert("Enter something");
-		    return;
+        if(login.length == 0 || password.length == 0){
+            alert("Enter something");
+            return;
         }
 
         sendRequest(
             "cfg/request.php",
             {
-				login: true,
-				name: login,
-				pass: password
-			},
+                login: true,
+                name: login,
+                pass: password
+            },
             function (data) {
-                console.log(data);
                 if(data == true){
                     window.location.replace("admin/clients");
                 } else {
@@ -139,8 +138,6 @@ $(function(){
         var email = $('#email').val();
         var phone = $('#phone').val();
 
-        console.log(name + surname + email + phone)
-
         sendRequest(
             "../cfg/request.php",
             {
@@ -187,6 +184,71 @@ $(function(){
             "../cfg/request.php",
             {
                 'delete-teacher': true,
+                id: id
+            },
+            function (data) {
+                location.reload(true);
+            }
+        );
+    });
+
+    $('.logout').click(function () {
+        sendRequest(
+            "../cfg/request.php",
+            { logout: true },
+            function () {
+                location.replace('/admin');
+            }
+        );
+    });
+
+    $('.add-package').click(function(){
+        var name = $('#add-name').val();
+        var price = $('#add-price').val();
+        var number = $('#add-number').val();
+
+        sendRequest(
+            "../cfg/request.php",
+            {
+                'add-package': true,
+                name: name,
+                price: price,
+                number: number
+            },
+            function (data) {
+                location.reload(true);
+            }
+        );
+    });
+
+    $('.edit-package').click(function () {
+        var id = $('#pid').val();
+        var name = $('#pname').val();
+        var price = $('#pprice').val();
+        var number = $('#pnumber').val();
+        
+        sendRequest(
+            "../cfg/request.php",
+            {
+                'update-package': true,
+                id: id,
+                name: name,
+                price: price,
+                number: number
+            },
+            function (data) {
+                location.reload(true);
+            }
+        );
+    });
+
+    $('.delete-package').click(function(){
+        var id = $(this).attr('data-id');
+
+        sendRequest(
+            "../cfg/request.php",
+            {
+                'delete-package': true,
                 id: id
             },
             function (data) {
