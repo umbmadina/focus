@@ -5,6 +5,11 @@
     $classes = $db->getAllClasses();
     $teachers = $db->getAllTeachers();
     session_start();
+
+    if(!isset($_SESSION['admin_login'])){
+        header("Location: localhost:8080/admin");
+        die();
+    }
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -224,7 +229,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="logout">
+                                        <a class="logout">
                                             <i class="gi gi-lock fa-fw pull-right"></i>
                                             Log out
                                         </a>

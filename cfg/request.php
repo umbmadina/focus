@@ -15,6 +15,12 @@ if (isset($_REQUEST["login"])) {
 	return $res;
 }
 
+if (isset($_REQUEST["logout"])) {
+    unset($_SESSION['admin_name']);
+    unset($_SESSION['admin_login']);
+    return $res;
+}
+
 if (isset($_REQUEST["update-client"])) {
     $db->connect();
 
@@ -117,5 +123,43 @@ if (isset($_REQUEST["delete-teacher"])) {
     $db->close();
     return $res;
 }
+
+if (isset($_REQUEST["add-package"])) {
+    $db->connect();
+
+    $name = $_REQUEST["name"];
+    $number = $_REQUEST["number"];
+    $price = $_REQUEST["price"];
+    $res = $db->addPackage($name, $number, $price);
+
+    $db->close();
+
+    return $res;
+}
+
+if (isset($_REQUEST["update-package"])) {
+    $db->connect();
+
+    $packageId = $_REQUEST["id"];
+    $name = $_REQUEST["name"];
+    $number = $_REQUEST["number"];
+    $price = $_REQUEST["price"];
+    $res = $db->updatePackage($packageId, $name, $number, $price);
+
+    $db->close();
+
+    return $res;
+}
+
+if (isset($_REQUEST["delete-package"])) {
+    $db->connect();
+
+    $packageId = $_REQUEST["id"];
+    $res = $db->deletePackage($packageId);
+
+    $db->close();
+    return $res;
+}
+
 
 

@@ -97,7 +97,7 @@ class myDB
     }
 
     function getAllPackages(){
-        $result = pg_query("SELECT * from packages where active = true");
+        $result = pg_query("SELECT * from packages where active = true order by 4 desc");
         return pg_fetch_all($result);
     }
 

@@ -4,6 +4,11 @@
     $db->connect();
     $packages = $db->getAllPackages();
     session_start();
+
+    if(!isset($_SESSION['admin_login'])){
+        header("Location: localhost:8080/admin");
+        die();
+    }
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -291,7 +296,7 @@
                             <a href="#modal-compose2" data-toggle="modal" class="btn btn-effect-ripple btn-xs btn-success"
                                data-id = "<?php echo $value['id']?>" data-name = "<?php echo $value['name']?>" data-price = "<?php echo $value['price']?>"  data-number = "<?php echo $value['number']?>" onclick="move(this);">
                                 <i class="fa fa-pencil"></i></a>
-                            <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Class" class="btn btn-effect-ripple btn-xs btn-danger delete-teacher" data-id="<?php echo $value['id']?>"><i class="fa fa-times"></i></a>
+                            <a href="javascript:void(0)" data-toggle="tooltip" title="Delete Class" class="btn btn-effect-ripple btn-xs btn-danger delete-package" data-id="<?php echo $value['id']?>"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                 <?php } ?>
@@ -328,20 +333,20 @@
                 <div class="form-group">
                   <label class="col-md-4 control-label" for="name">Name</label>
                   <div class="col-md-6">
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Class name..">
+                    <input type="text" id="add-name" name="name" class="form-control" placeholder="Class name..">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-md-4 control-label">Price</label>
                   <div class="col-md-6">
-                    <input type="text" name="price" class="form-control" placeholder="100$">
+                    <input type="text" id="add-price" name="price" class="form-control" placeholder="100$">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-md-4 control-label">Number of classes</label>
                   <div class="col-md-6">
-                    <input type="number" name="number" class="form-control">
+                    <input type="number" id="add-number" name="number" class="form-control">
                   </div>
                 </div>
 
@@ -350,7 +355,7 @@
 
             <div class="form-group form-actions">
               <div class="col-xs-12 text-right">
-                <button type="submit" class="btn btn-effect-ripple btn-primary">Add</button>
+                <button type="submit" class="btn btn-effect-ripple btn-primary add-package">Add</button>
               </div>
             </div>
           </form>
@@ -372,23 +377,30 @@
           <form action="" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
             <div class="form-group">
               <div class="col-xs-12">
+                  <div class="form-group">
+                      <label class="col-md-4 control-label" for="pid">ID</label>
+                      <div class="col-md-6">
+                          <input type="text" id="pid" name="pid" class="form-control" value="ID" readonly>
+                      </div>
+                  </div>
+
                 <div class="form-group">
                   <label class="col-md-4 control-label" for="name">Name</label>
                   <div class="col-md-6">
-                    <input type="text" id="pname" name="name" class="form-control" placeholder="Class name..">
+                    <input type="text" id="pname" name="name" class="form-control" placeholder="Package name..">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-md-4 control-label">Price</label>
                   <div class="col-md-6">
-                    <input type="text" name="price" id="price" class="form-control" placeholder="100$">
+                    <input type="text" name="price" id="pprice" class="form-control" placeholder="100$">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-md-4 control-label">Number of classes</label>
                   <div class="col-md-6">
-                    <input type="number" name="number" id="number" class="form-control">
+                    <input type="number" name="number" id="pnumber" class="form-control">
                   </div>
                 </div>
 
@@ -397,7 +409,7 @@
 
             <div class="form-group form-actions">
               <div class="col-xs-12 text-right">
-                <button type="submit" class="btn btn-effect-ripple btn-primary">Edit</button>
+                <button type="submit" class="btn btn-effect-ripple btn-primary edit-package">Edit</button>
               </div>
             </div>
           </form>
@@ -423,9 +435,10 @@
   </script>
   <script>
     function move(e) {
-      document.getElementById("pname").value = e.dataset.name;
-      document.getElementById("price").value = e.dataset.price;
-      document.getElementById("number").value = e.dataset.number;
+        document.getElementById("pid").value = e.dataset.id;
+        document.getElementById("pname").value = e.dataset.name;
+        document.getElementById("pprice").value = e.dataset.price;
+        document.getElementById("pnumber").value = e.dataset.number;
     }
   </script>
 </body>
